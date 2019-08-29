@@ -41,7 +41,7 @@
         >
           <svg
             class="gantt-elastic__chart-graph-svg"
-            :style="{ ...root.style['chart-graph-svg'] }"
+            :style="{ ...root.style['chart-graph-svg'], background: 'repeating-linear-gradient(to right, white 0, white 2px, transparent 2px, transparent 28px, white 28px, white 30px),repeating-linear-gradient(to bottom, white 0, white 2px, transparent 2px, transparent 28px, white 28px, white 30px) #f7f7f7' }"
             ref="chartGraphSvg"
             x="0"
             y="0"
@@ -51,7 +51,7 @@
           >
             <days-highlight></days-highlight>
             <grid></grid>
-            <dependency-lines :tasks="root.visibleTasks"></dependency-lines>
+            <!-- <dependency-lines :tasks="root.visibleTasks"></dependency-lines> -->
             <g
               class="gantt-elastic__chart-row-wrapper"
               :style="{ ...root.style['chart-row-wrapper'] }"

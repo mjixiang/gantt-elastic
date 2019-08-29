@@ -109,14 +109,14 @@ function getOptions(userOptions) {
       steps: []
     },
     row: {
-      height: 24 //*
+      height: 26 //*
     },
     maxRows: 20, //*
     maxHeight: 0, //*
     chart: {
       grid: {
         horizontal: {
-          gap: 6 //*
+          gap: 2 //*
         }
       },
       progress: {
@@ -1115,8 +1115,9 @@ const GanttElastic = {
       let min = this.state.options.times.timeScale;
       let steps = max / min;
       let percent = this.state.options.times.timeZoom / 100;
-      this.state.options.times.timePerPixel =
-        this.state.options.times.timeScale * steps * percent + Math.pow(2, this.state.options.times.timeZoom);
+      this.state.options.times.timePerPixel = 3600000 * 24 / 30
+      // this.state.options.times.timePerPixel =
+      //   this.state.options.times.timeScale * steps * percent + Math.pow(2, this.state.options.times.timeZoom);
       this.state.options.times.totalViewDurationMs = dayjs(this.state.options.times.lastTime).diff(
         this.state.options.times.firstTime,
         'milliseconds'

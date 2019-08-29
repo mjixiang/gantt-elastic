@@ -19,26 +19,6 @@
   >
     <g class="gantt-elastic__grid-lines" :style="{ ...root.style['grid-lines'] }">
       <line
-        class="gantt-elastic__grid-line-horizontal"
-        :style="{ ...root.style['grid-line-horizontal'] }"
-        v-for="line in horizontalLines"
-        :key="line.key"
-        :x1="line.x1"
-        :y1="line.y1"
-        :x2="line.x2"
-        :y2="line.y2"
-      ></line>
-      <line
-        class="gantt-elastic__grid-line-vertical"
-        :style="{ ...root.style['grid-line-vertical'] }"
-        v-for="line in verticalLines"
-        :key="line.key"
-        :x1="line.x1"
-        :y1="line.y1"
-        :x2="line.x2"
-        :y2="line.y2"
-      ></line>
-      <line
         class="gantt-elastic__grid-line-time"
         :style="{ ...root.style['grid-line-time'] }"
         :x1="timeLinePosition.x"

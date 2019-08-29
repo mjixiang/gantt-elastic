@@ -8,27 +8,20 @@
 -->
 <template>
   <g>
-    <component
+    <Task
       v-for="subtask in subtaskList"
       :task="subtask"
-      :key="subtask.id"
-      :is="subtask.type">
-    </component>
+      :key="subtask.id">
+    </Task>
   </g>
 </template>
 
 <script>
 import taskMixin from './Task.mixin.js';
 import Task from './Task.vue';
-import Milestone from './Milestone.vue';
-import Project from './Project.vue';
 export default {
   name: 'Group',
-  components: {
-    Task,
-    Milestone,
-    Project,
-  },
+  components: { Task },
   inject: ['root'],
   props: ['task'],
   mixins: [taskMixin],

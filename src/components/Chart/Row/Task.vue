@@ -107,7 +107,7 @@ export default {
      */
     getPoints() {
       const task = this.task;
-      return `0,0 ${task.width},0 ${task.width},${task.height} 0,${task.height}`;
+      return `2,0 ${task.width - 2},0 ${task.width - 2},${task.height} 2,${task.height}`;
     }
   }
 };
