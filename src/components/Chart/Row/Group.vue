@@ -18,13 +18,10 @@
 </template>
 
 <script>
-import ChartText from '../Text.vue';
-import ProgressBar from '../ProgressBar.vue';
-import Expander from '../../Expander.vue';
 import taskMixin from './Task.mixin.js';
-import Task from 'gantt-elastic/src/components/Chart/Row/Task';
-import Milestone from 'gantt-elastic/src/components/Chart/Row/Milestone';
-import Project from 'gantt-elastic/src/components/Chart/Row/Project';
+import Task from './Task.vue';
+import Milestone from './Milestone.vue';
+import Project from './Project.vue';
 export default {
   name: 'Group',
   components: {

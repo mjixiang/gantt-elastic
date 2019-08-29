@@ -68,7 +68,10 @@ export default function getStyle(fontSize = '12px', fontFamily = 'Arial, sans-se
       display: 'inline-block',
       position: 'relative'
     },
-    'calendar-row-text--month': {},
+    'calendar-row-text--month': {
+      left: '50%',
+      transform: 'translate3d(-50%, 0, 0)'
+    },
     'calendar-row-text--day': {},
     'calendar-row-text--hour': {},
     'task-list-wrapper': {},
