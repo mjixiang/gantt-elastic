@@ -74,8 +74,6 @@ import DaysHighlight from './DaysHighlight.vue';
 import Calendar from '../Calendar/Calendar.vue';
 import DependencyLines from './DependencyLines.vue';
 import Task from './Row/Task.vue';
-import Milestone from './Row/Milestone.vue';
-import Project from './Row/Project.vue';
 import Group from './Row/Group.vue';
 export default {
   name: 'Chart',
@@ -84,8 +82,6 @@ export default {
     DependencyLines,
     Calendar,
     Task,
-    Milestone,
-    Project,
     Group,
     DaysHighlight
   },

@@ -171,7 +171,8 @@ export default function getStyle(fontSize = '12px', fontFamily = 'Arial, sans-se
       'border-right': '1px solid #eee',
       'box-sizing': 'border-box',
       display: 'flex',
-      background: 'transparent'
+      background: 'transparent',
+      height: '30px'
     },
     'task-list-item-column': {
       display: 'inline-flex',
