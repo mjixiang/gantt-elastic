@@ -92,9 +92,9 @@ export default {
       };
       return child => {
         const style = { ...basicStyle };
-        if (this.which === 'month') {
-          style.left = this.getTextX(child) + 'px';
-        }
+        // if (this.which === 'month') {
+          // style.left = this.getTextX(child) + 'px';
+        // }
         return style;
       };
     }

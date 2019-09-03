@@ -15,21 +15,6 @@
       ...task.style['chart-row-bar-wrapper']
     }"
   >
-    <foreignObject
-      class="gantt-elastic__chart-expander gantt-elastic__chart-expander--task"
-      :style="{
-        ...root.style['chart-expander'],
-        ...root.style['chart-expander--task'],
-        ...task.style['chart-expander']
-      }"
-      :x="task.x - root.state.options.chart.expander.offset - root.state.options.chart.expander.size"
-      :y="task.y + (root.state.options.row.height - root.state.options.chart.expander.size) / 2"
-      :width="root.state.options.chart.expander.size"
-      :height="root.state.options.chart.expander.size"
-      v-if="displayExpander"
-    >
-      <expander :tasks="[task]" :options="root.state.options.chart.expander" type="chart"></expander>
-    </foreignObject>
     <svg
       class="gantt-elastic__chart-row-bar gantt-elastic__chart-row-task"
       :style="{ ...root.style['chart-row-bar'], ...root.style['chart-row-task'], ...task.style['chart-row-bar'] }"
@@ -51,11 +36,6 @@
       @touchend="emitEvent('touchend', $event)"
       xmlns="http://www.w3.org/2000/svg"
     >
-      <defs>
-        <clipPath :id="clipPathId">
-          <polygon :points="getPoints"></polygon>
-        </clipPath>
-      </defs>
       <polygon
         class="gantt-elastic__chart-row-bar-polygon gantt-elastic__chart-row-task-polygon"
         :style="{
@@ -66,23 +46,15 @@
         }"
         :points="getPoints"
       ></polygon>
-      <progress-bar :task="task" :clip-path="'url(#' + clipPathId + ')'"></progress-bar>
     </svg>
-    <chart-text :task="task" v-if="root.state.options.chart.text.display"></chart-text>
   </g>
 </template>
 
 <script>
-import ChartText from '../Text.vue';
-import ProgressBar from '../ProgressBar.vue';
-import Expander from '../../Expander.vue';
 import taskMixin from './Task.mixin.js';
 export default {
   name: 'Task',
   components: {
-    ChartText,
-    ProgressBar,
-    Expander
   },
   inject: ['root'],
   props: ['task'],
@@ -107,7 +79,7 @@ export default {
      */
     getPoints() {
       const task = this.task;
-      return `0,0 ${task.width},0 ${task.width},${task.height} 0,${task.height}`;
+      return `2,0 ${task.width - 2},0 ${task.width - 2},${task.height} 2,${task.height}`;
     }
   }
 };

@@ -68,7 +68,10 @@ export default function getStyle(fontSize = '12px', fontFamily = 'Arial, sans-se
       display: 'inline-block',
       position: 'relative'
     },
-    'calendar-row-text--month': {},
+    'calendar-row-text--month': {
+      left: '50%',
+      transform: 'translate3d(-50%, 0, 0)'
+    },
     'calendar-row-text--day': {},
     'calendar-row-text--hour': {},
     'task-list-wrapper': {},
@@ -168,7 +171,8 @@ export default function getStyle(fontSize = '12px', fontFamily = 'Arial, sans-se
       'border-right': '1px solid #eee',
       'box-sizing': 'border-box',
       display: 'flex',
-      background: 'transparent'
+      background: 'transparent',
+      height: '30px'
     },
     'task-list-item-column': {
       display: 'inline-flex',
@@ -197,7 +201,7 @@ export default function getStyle(fontSize = '12px', fontFamily = 'Arial, sans-se
       'margin-right': '6px',
       overflow: 'hidden',
       'text-overflow': 'ellipsis',
-      'line-height': '1.5em',
+      'line-height': '1em',
       'word-break': 'keep-all',
       'white-space': 'nowrap',
       color: '#606060',
@@ -206,11 +210,11 @@ export default function getStyle(fontSize = '12px', fontFamily = 'Arial, sans-se
     'grid-lines': {},
     'grid-line-horizontal': {
       stroke: '#00000010',
-      'stroke-width': 1
+      'stroke-width': 0
     },
     'grid-line-vertical': {
       stroke: '#00000010',
-      'stroke-width': 1
+      'stroke-width': 0
     },
     'grid-line-time': {
       stroke: '#FF000080',
@@ -305,7 +309,8 @@ export default function getStyle(fontSize = '12px', fontFamily = 'Arial, sans-se
       float: 'right'
     },
     'chart-days-highlight-rect': {
-      fill: '#f3f5f780'
+      // fill: '#f3f5f780',
+      fill: '#f2f2f280'
     },
     'slot-header-beforeOptions': {
       display: 'inline-block'

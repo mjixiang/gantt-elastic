@@ -109,14 +109,14 @@ function getOptions(userOptions) {
       steps: []
     },
     row: {
-      height: 24 //*
+      height: 26 //*
     },
     maxRows: 20, //*
     maxHeight: 0, //*
     chart: {
       grid: {
         horizontal: {
-          gap: 6 //*
+          gap: 2 //*
         }
       },
       progress: {
@@ -628,6 +628,12 @@ const GanttElastic = {
       });
       this.state.options = options;
       tasks = this.fillTasks(tasks);
+      tasks.forEach(task => {
+        if (task.tasks) {
+          this.mapTasks(task.tasks, options);
+          this.fillTasks(task.tasks);
+        }
+      });
       this.state.tasksById = this.resetTaskTree(tasks);
       this.state.taskTree = this.makeTaskTree(this.state.rootTask, tasks);
       this.state.tasks = this.state.taskTree.allChildren.map(childId => this.getTask(childId));
@@ -1109,8 +1115,9 @@ const GanttElastic = {
       let min = this.state.options.times.timeScale;
       let steps = max / min;
       let percent = this.state.options.times.timeZoom / 100;
-      this.state.options.times.timePerPixel =
-        this.state.options.times.timeScale * steps * percent + Math.pow(2, this.state.options.times.timeZoom);
+      this.state.options.times.timePerPixel = 3600000 * 24 / 30
+      // this.state.options.times.timePerPixel =
+      //   this.state.options.times.timeScale * steps * percent + Math.pow(2, this.state.options.times.timeZoom);
       this.state.options.times.totalViewDurationMs = dayjs(this.state.options.times.lastTime).diff(
         this.state.options.times.firstTime,
         'milliseconds'
@@ -1432,6 +1439,22 @@ const GanttElastic = {
         task.y =
           (this.state.options.row.height + this.state.options.chart.grid.horizontal.gap * 2) * index +
           this.state.options.chart.grid.horizontal.gap;
+        if (task.tasks) {
+          const subtasks = [];
+          task.tasks.forEach(subtask => {
+            subtask.width =
+              subtask.duration / this.state.options.times.timePerPixel -
+              this.style['grid-line-vertical']['stroke-width'];
+            if (subtask.width < 0) {
+              subtask.width = 0;
+            }
+            subtask.height = task.height;
+            subtask.x = this.timeToPixelOffsetX(subtask.startTime);
+            subtask.y = task.y;
+            subtasks.push(subtask);
+          });
+          task.tasks = subtasks;
+        }
       }
       return visibleTasks;
     },

@@ -89,7 +89,7 @@ module.exports =
 /* 0 */
 /***/ (function(module, exports, __webpack_require__) {
 
-!function(t,n){ true?module.exports=n():undefined}(this,function(){"use strict";var t="millisecond",n="second",e="minute",r="hour",i="day",s="week",u="month",a="quarter",o="year",h=/^(\d{4})-?(\d{1,2})-?(\d{0,2})[^0-9]*(\d{1,2})?:?(\d{1,2})?:?(\d{1,2})?.?(\d{1,3})?$/,f=/\[([^\]]+)]|Y{2,4}|M{1,4}|D{1,2}|d{1,4}|H{1,2}|h{1,2}|a|A|m{1,2}|s{1,2}|Z{1,2}|SSS/g,c=function(t,n,e){var r=String(t);return!r||r.length>=n?t:""+Array(n+1-r.length).join(e)+t},d={s:c,z:function(t){var n=-t.utcOffset(),e=Math.abs(n),r=Math.floor(e/60),i=e%60;return(n<=0?"+":"-")+c(r,2,"0")+":"+c(i,2,"0")},m:function(t,n){var e=12*(n.year()-t.year())+(n.month()-t.month()),r=t.clone().add(e,u),i=n-r<0,s=t.clone().add(e+(i?-1:1),u);return Number(-(e+(n-r)/(i?r-s:s-r))||0)},a:function(t){return t<0?Math.ceil(t)||0:Math.floor(t)},p:function(h){return{M:u,y:o,w:s,d:i,h:r,m:e,s:n,ms:t,Q:a}[h]||String(h||"").toLowerCase().replace(/s$/,"")},u:function(t){return void 0===t}},$={name:"en",weekdays:"Sunday_Monday_Tuesday_Wednesday_Thursday_Friday_Saturday".split("_"),months:"January_February_March_April_May_June_July_August_September_October_November_December".split("_")},l="en",m={};m[l]=$;var y=function(t){return t instanceof v},M=function(t,n,e){var r;if(!t)return l;if("string"==typeof t)m[t]&&(r=t),n&&(m[t]=n,r=t);else{var i=t.name;m[i]=t,r=i}return e||(l=r),r},g=function(t,n,e){if(y(t))return t.clone();var r=n?"string"==typeof n?{format:n,pl:e}:n:{};return r.date=t,new v(r)},D=d;D.l=M,D.i=y,D.w=function(t,n){return g(t,{locale:n.$L,utc:n.$u})};var v=function(){function c(t){this.$L=this.$L||M(t.locale,null,!0),this.parse(t)}var d=c.prototype;return d.parse=function(t){this.$d=function(t){var n=t.date,e=t.utc;if(null===n)return new Date(NaN);if(D.u(n))return new Date;if(n instanceof Date)return new Date(n);if("string"==typeof n&&!/Z$/i.test(n)){var r=n.match(h);if(r)return e?new Date(Date.UTC(r[1],r[2]-1,r[3]||1,r[4]||0,r[5]||0,r[6]||0,r[7]||0)):new Date(r[1],r[2]-1,r[3]||1,r[4]||0,r[5]||0,r[6]||0,r[7]||0)}return new Date(n)}(t),this.init()},d.init=function(){var t=this.$d;this.$y=t.getFullYear(),this.$M=t.getMonth(),this.$D=t.getDate(),this.$W=t.getDay(),this.$H=t.getHours(),this.$m=t.getMinutes(),this.$s=t.getSeconds(),this.$ms=t.getMilliseconds()},d.$utils=function(){return D},d.isValid=function(){return!("Invalid Date"===this.$d.toString())},d.isSame=function(t,n){var e=g(t);return this.startOf(n)<=e&&e<=this.endOf(n)},d.isAfter=function(t,n){return g(t)<this.startOf(n)},d.isBefore=function(t,n){return this.endOf(n)<g(t)},d.$g=function(t,n,e){return D.u(t)?this[n]:this.set(e,t)},d.year=function(t){return this.$g(t,"$y",o)},d.month=function(t){return this.$g(t,"$M",u)},d.day=function(t){return this.$g(t,"$W",i)},d.date=function(t){return this.$g(t,"$D","date")},d.hour=function(t){return this.$g(t,"$H",r)},d.minute=function(t){return this.$g(t,"$m",e)},d.second=function(t){return this.$g(t,"$s",n)},d.millisecond=function(n){return this.$g(n,"$ms",t)},d.unix=function(){return Math.floor(this.valueOf()/1e3)},d.valueOf=function(){return this.$d.getTime()},d.startOf=function(t,a){var h=this,f=!!D.u(a)||a,c=D.p(t),d=function(t,n){var e=D.w(h.$u?Date.UTC(h.$y,n,t):new Date(h.$y,n,t),h);return f?e:e.endOf(i)},$=function(t,n){return D.w(h.toDate()[t].apply(h.toDate(),(f?[0,0,0,0]:[23,59,59,999]).slice(n)),h)},l=this.$W,m=this.$M,y=this.$D,M="set"+(this.$u?"UTC":"");switch(c){case o:return f?d(1,0):d(31,11);case u:return f?d(1,m):d(0,m+1);case s:var g=this.$locale().weekStart||0,v=(l<g?l+7:l)-g;return d(f?y-v:y+(6-v),m);case i:case"date":return $(M+"Hours",0);case r:return $(M+"Minutes",1);case e:return $(M+"Seconds",2);case n:return $(M+"Milliseconds",3);default:return this.clone()}},d.endOf=function(t){return this.startOf(t,!1)},d.$set=function(s,a){var h,f=D.p(s),c="set"+(this.$u?"UTC":""),d=(h={},h[i]=c+"Date",h.date=c+"Date",h[u]=c+"Month",h[o]=c+"FullYear",h[r]=c+"Hours",h[e]=c+"Minutes",h[n]=c+"Seconds",h[t]=c+"Milliseconds",h)[f],$=f===i?this.$D+(a-this.$W):a;if(f===u||f===o){var l=this.clone().set("date",1);l.$d[d]($),l.init(),this.$d=l.set("date",Math.min(this.$D,l.daysInMonth())).toDate()}else d&&this.$d[d]($);return this.init(),this},d.set=function(t,n){return this.clone().$set(t,n)},d.get=function(t){return this[D.p(t)]()},d.add=function(t,a){var h,f=this;t=Number(t);var c=D.p(a),d=function(n){var e=g(f);return D.w(e.date(e.date()+Math.round(n*t)),f)};if(c===u)return this.set(u,this.$M+t);if(c===o)return this.set(o,this.$y+t);if(c===i)return d(1);if(c===s)return d(7);var $=(h={},h[e]=6e4,h[r]=36e5,h[n]=1e3,h)[c]||1,l=this.valueOf()+t*$;return D.w(l,this)},d.subtract=function(t,n){return this.add(-1*t,n)},d.format=function(t){var n=this;if(!this.isValid())return"Invalid Date";var e=t||"YYYY-MM-DDTHH:mm:ssZ",r=D.z(this),i=this.$locale(),s=this.$H,u=this.$m,a=this.$M,o=i.weekdays,h=i.months,c=function(t,r,i,s){return t&&(t[r]||t(n,e))||i[r].substr(0,s)},d=function(t){return D.s(s%12||12,t,"0")},$=i.meridiem||function(t,n,e){var r=t<12?"AM":"PM";return e?r.toLowerCase():r},l={YY:String(this.$y).slice(-2),YYYY:this.$y,M:a+1,MM:D.s(a+1,2,"0"),MMM:c(i.monthsShort,a,h,3),MMMM:h[a]||h(this,e),D:this.$D,DD:D.s(this.$D,2,"0"),d:String(this.$W),dd:c(i.weekdaysMin,this.$W,o,2),ddd:c(i.weekdaysShort,this.$W,o,3),dddd:o[this.$W],H:String(s),HH:D.s(s,2,"0"),h:d(1),hh:d(2),a:$(s,u,!0),A:$(s,u,!1),m:String(u),mm:D.s(u,2,"0"),s:String(this.$s),ss:D.s(this.$s,2,"0"),SSS:D.s(this.$ms,3,"0"),Z:r};return e.replace(f,function(t,n){return n||l[t]||r.replace(":","")})},d.utcOffset=function(){return 15*-Math.round(this.$d.getTimezoneOffset()/15)},d.diff=function(t,h,f){var c,d=D.p(h),$=g(t),l=6e4*($.utcOffset()-this.utcOffset()),m=this-$,y=D.m(this,$);return y=(c={},c[o]=y/12,c[u]=y,c[a]=y/3,c[s]=(m-l)/6048e5,c[i]=(m-l)/864e5,c[r]=m/36e5,c[e]=m/6e4,c[n]=m/1e3,c)[d]||m,f?y:D.a(y)},d.daysInMonth=function(){return this.endOf(u).$D},d.$locale=function(){return m[this.$L]},d.locale=function(t,n){if(!t)return this.$L;var e=this.clone();return e.$L=M(t,n,!0),e},d.clone=function(){return D.w(this.toDate(),this)},d.toDate=function(){return new Date(this.$d)},d.toJSON=function(){return this.isValid()?this.toISOString():null},d.toISOString=function(){return this.$d.toISOString()},d.toString=function(){return this.$d.toUTCString()},c}();return g.prototype=v.prototype,g.extend=function(t,n){return t(n,v,g),g},g.locale=M,g.isDayjs=y,g.unix=function(t){return g(1e3*t)},g.en=m[l],g.Ls=m,g});
+!function(t,n){ true?module.exports=n():undefined}(this,function(){"use strict";var t="millisecond",n="second",e="minute",r="hour",i="day",s="week",u="month",o="quarter",a="year",h=/^(\d{4})-?(\d{1,2})-?(\d{0,2})[^0-9]*(\d{1,2})?:?(\d{1,2})?:?(\d{1,2})?.?(\d{1,3})?$/,f=/\[([^\]]+)]|Y{2,4}|M{1,4}|D{1,2}|d{1,4}|H{1,2}|h{1,2}|a|A|m{1,2}|s{1,2}|Z{1,2}|SSS/g,c=function(t,n,e){var r=String(t);return!r||r.length>=n?t:""+Array(n+1-r.length).join(e)+t},d={s:c,z:function(t){var n=-t.utcOffset(),e=Math.abs(n),r=Math.floor(e/60),i=e%60;return(n<=0?"+":"-")+c(r,2,"0")+":"+c(i,2,"0")},m:function(t,n){var e=12*(n.year()-t.year())+(n.month()-t.month()),r=t.clone().add(e,u),i=n-r<0,s=t.clone().add(e+(i?-1:1),u);return Number(-(e+(n-r)/(i?r-s:s-r))||0)},a:function(t){return t<0?Math.ceil(t)||0:Math.floor(t)},p:function(h){return{M:u,y:a,w:s,d:i,h:r,m:e,s:n,ms:t,Q:o}[h]||String(h||"").toLowerCase().replace(/s$/,"")},u:function(t){return void 0===t}},$={name:"en",weekdays:"Sunday_Monday_Tuesday_Wednesday_Thursday_Friday_Saturday".split("_"),months:"January_February_March_April_May_June_July_August_September_October_November_December".split("_")},l="en",m={};m[l]=$;var y=function(t){return t instanceof v},M=function(t,n,e){var r;if(!t)return l;if("string"==typeof t)m[t]&&(r=t),n&&(m[t]=n,r=t);else{var i=t.name;m[i]=t,r=i}return e||(l=r),r},g=function(t,n,e){if(y(t))return t.clone();var r=n?"string"==typeof n?{format:n,pl:e}:n:{};return r.date=t,new v(r)},D=d;D.l=M,D.i=y,D.w=function(t,n){return g(t,{locale:n.$L,utc:n.$u})};var v=function(){function c(t){this.$L=this.$L||M(t.locale,null,!0),this.parse(t)}var d=c.prototype;return d.parse=function(t){this.$d=function(t){var n=t.date,e=t.utc;if(null===n)return new Date(NaN);if(D.u(n))return new Date;if(n instanceof Date)return new Date(n);if("string"==typeof n&&!/Z$/i.test(n)){var r=n.match(h);if(r)return e?new Date(Date.UTC(r[1],r[2]-1,r[3]||1,r[4]||0,r[5]||0,r[6]||0,r[7]||0)):new Date(r[1],r[2]-1,r[3]||1,r[4]||0,r[5]||0,r[6]||0,r[7]||0)}return new Date(n)}(t),this.init()},d.init=function(){var t=this.$d;this.$y=t.getFullYear(),this.$M=t.getMonth(),this.$D=t.getDate(),this.$W=t.getDay(),this.$H=t.getHours(),this.$m=t.getMinutes(),this.$s=t.getSeconds(),this.$ms=t.getMilliseconds()},d.$utils=function(){return D},d.isValid=function(){return!("Invalid Date"===this.$d.toString())},d.isSame=function(t,n){var e=g(t);return this.startOf(n)<=e&&e<=this.endOf(n)},d.isAfter=function(t,n){return g(t)<this.startOf(n)},d.isBefore=function(t,n){return this.endOf(n)<g(t)},d.$g=function(t,n,e){return D.u(t)?this[n]:this.set(e,t)},d.year=function(t){return this.$g(t,"$y",a)},d.month=function(t){return this.$g(t,"$M",u)},d.day=function(t){return this.$g(t,"$W",i)},d.date=function(t){return this.$g(t,"$D","date")},d.hour=function(t){return this.$g(t,"$H",r)},d.minute=function(t){return this.$g(t,"$m",e)},d.second=function(t){return this.$g(t,"$s",n)},d.millisecond=function(n){return this.$g(n,"$ms",t)},d.unix=function(){return Math.floor(this.valueOf()/1e3)},d.valueOf=function(){return this.$d.getTime()},d.startOf=function(t,o){var h=this,f=!!D.u(o)||o,c=D.p(t),d=function(t,n){var e=D.w(h.$u?Date.UTC(h.$y,n,t):new Date(h.$y,n,t),h);return f?e:e.endOf(i)},$=function(t,n){return D.w(h.toDate()[t].apply(h.toDate(),(f?[0,0,0,0]:[23,59,59,999]).slice(n)),h)},l=this.$W,m=this.$M,y=this.$D,M="set"+(this.$u?"UTC":"");switch(c){case a:return f?d(1,0):d(31,11);case u:return f?d(1,m):d(0,m+1);case s:var g=this.$locale().weekStart||0,v=(l<g?l+7:l)-g;return d(f?y-v:y+(6-v),m);case i:case"date":return $(M+"Hours",0);case r:return $(M+"Minutes",1);case e:return $(M+"Seconds",2);case n:return $(M+"Milliseconds",3);default:return this.clone()}},d.endOf=function(t){return this.startOf(t,!1)},d.$set=function(s,o){var h,f=D.p(s),c="set"+(this.$u?"UTC":""),d=(h={},h[i]=c+"Date",h.date=c+"Date",h[u]=c+"Month",h[a]=c+"FullYear",h[r]=c+"Hours",h[e]=c+"Minutes",h[n]=c+"Seconds",h[t]=c+"Milliseconds",h)[f],$=f===i?this.$D+(o-this.$W):o;if(f===u||f===a){var l=this.clone().set("date",1);l.$d[d]($),l.init(),this.$d=l.set("date",Math.min(this.$D,l.daysInMonth())).toDate()}else d&&this.$d[d]($);return this.init(),this},d.set=function(t,n){return this.clone().$set(t,n)},d.get=function(t){return this[D.p(t)]()},d.add=function(t,o){var h,f=this;t=Number(t);var c=D.p(o),d=function(n){var e=g(f);return D.w(e.date(e.date()+Math.round(n*t)),f)};if(c===u)return this.set(u,this.$M+t);if(c===a)return this.set(a,this.$y+t);if(c===i)return d(1);if(c===s)return d(7);var $=(h={},h[e]=6e4,h[r]=36e5,h[n]=1e3,h)[c]||1,l=this.valueOf()+t*$;return D.w(l,this)},d.subtract=function(t,n){return this.add(-1*t,n)},d.format=function(t){var n=this;if(!this.isValid())return"Invalid Date";var e=t||"YYYY-MM-DDTHH:mm:ssZ",r=D.z(this),i=this.$locale(),s=this.$H,u=this.$m,o=this.$M,a=i.weekdays,h=i.months,c=function(t,r,i,s){return t&&(t[r]||t(n,e))||i[r].substr(0,s)},d=function(t){return D.s(s%12||12,t,"0")},$=i.meridiem||function(t,n,e){var r=t<12?"AM":"PM";return e?r.toLowerCase():r},l={YY:String(this.$y).slice(-2),YYYY:this.$y,M:o+1,MM:D.s(o+1,2,"0"),MMM:c(i.monthsShort,o,h,3),MMMM:h[o]||h(this,e),D:this.$D,DD:D.s(this.$D,2,"0"),d:String(this.$W),dd:c(i.weekdaysMin,this.$W,a,2),ddd:c(i.weekdaysShort,this.$W,a,3),dddd:a[this.$W],H:String(s),HH:D.s(s,2,"0"),h:d(1),hh:d(2),a:$(s,u,!0),A:$(s,u,!1),m:String(u),mm:D.s(u,2,"0"),s:String(this.$s),ss:D.s(this.$s,2,"0"),SSS:D.s(this.$ms,3,"0"),Z:r};return e.replace(f,function(t,n){return n||l[t]||r.replace(":","")})},d.utcOffset=function(){return 15*-Math.round(this.$d.getTimezoneOffset()/15)},d.diff=function(t,h,f){var c,d=D.p(h),$=g(t),l=6e4*($.utcOffset()-this.utcOffset()),m=this-$,y=D.m(this,$);return y=(c={},c[a]=y/12,c[u]=y,c[o]=y/3,c[s]=(m-l)/6048e5,c[i]=(m-l)/864e5,c[r]=m/36e5,c[e]=m/6e4,c[n]=m/1e3,c)[d]||m,f?y:D.a(y)},d.daysInMonth=function(){return this.endOf(u).$D},d.$locale=function(){return m[this.$L]},d.locale=function(t,n){if(!t)return this.$L;var e=this.clone();return e.$L=M(t,n,!0),e},d.clone=function(){return D.w(this.toDate(),this)},d.toDate=function(){return new Date(this.$d)},d.toJSON=function(){return this.toISOString()},d.toISOString=function(){return this.$d.toISOString()},d.toString=function(){return this.$d.toUTCString()},c}();return g.prototype=v.prototype,g.extend=function(t,n){return t(n,v,g),g},g.locale=M,g.isDayjs=y,g.unix=function(t){return g(1e3*t)},g.en=m[l],g.Ls=m,g});
 
 
 /***/ }),
@@ -2637,7 +2637,11 @@ var Chartvue_type_template_id_67c3f5cd_render = function() {
                       staticClass: "gantt-elastic__chart-graph-svg",
                       style: Object.assign(
                         {},
-                        _vm.root.style["chart-graph-svg"]
+                        _vm.root.style["chart-graph-svg"],
+                        {
+                          background:
+                            "repeating-linear-gradient(to right, white 0, white 2px, transparent 2px, transparent 28px, white 28px, white 30px),repeating-linear-gradient(to bottom, white 0, white 2px, transparent 2px, transparent 28px, white 28px, white 30px) #f7f7f7"
+                        }
                       ),
                       attrs: {
                         x: "0",
@@ -2652,10 +2656,6 @@ var Chartvue_type_template_id_67c3f5cd_render = function() {
                       _c("days-highlight"),
                       _vm._v(" "),
                       _c("grid"),
-                      _vm._v(" "),
-                      _c("dependency-lines", {
-                        attrs: { tasks: _vm.root.visibleTasks }
-                      }),
                       _vm._v(" "),
                       _vm._l(_vm.root.visibleTasks, function(task) {
                         return _c(
@@ -2723,24 +2723,6 @@ var Gridvue_type_template_id_2bf979a7_render = function() {
           style: Object.assign({}, _vm.root.style["grid-lines"])
         },
         [
-          _vm._l(_vm.horizontalLines, function(line) {
-            return _c("line", {
-              key: line.key,
-              staticClass: "gantt-elastic__grid-line-horizontal",
-              style: Object.assign({}, _vm.root.style["grid-line-horizontal"]),
-              attrs: { x1: line.x1, y1: line.y1, x2: line.x2, y2: line.y2 }
-            })
-          }),
-          _vm._v(" "),
-          _vm._l(_vm.verticalLines, function(line) {
-            return _c("line", {
-              key: line.key,
-              staticClass: "gantt-elastic__grid-line-vertical",
-              style: Object.assign({}, _vm.root.style["grid-line-vertical"]),
-              attrs: { x1: line.x1, y1: line.y1, x2: line.x2, y2: line.y2 }
-            })
-          }),
-          _vm._v(" "),
           _c("line", {
             staticClass: "gantt-elastic__grid-line-time",
             style: Object.assign({}, _vm.root.style["grid-line-time"]),
@@ -2751,8 +2733,7 @@ var Gridvue_type_template_id_2bf979a7_render = function() {
               y2: _vm.timeLinePosition.y2
             }
           })
-        ],
-        2
+        ]
       )
     ]
   )
@@ -2764,26 +2745,6 @@ Gridvue_type_template_id_2bf979a7_render._withStripped = true
 // CONCATENATED MODULE: ./src/components/Chart/Grid.vue?vue&type=template&id=2bf979a7&
 
 // CONCATENATED MODULE: ./node_modules/vue-loader/lib??vue-loader-options!./src/components/Chart/Grid.vue?vue&type=script&lang=js&
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 //
 //
 //
@@ -3310,9 +3271,9 @@ CalendarRowvue_type_template_id_0daf06fb_render._withStripped = true
       };
       return child => {
         const style = { ...basicStyle };
-        if (this.which === 'month') {
-          style.left = this.getTextX(child) + 'px';
-        }
+        // if (this.which === 'month') {
+          // style.left = this.getTextX(child) + 'px';
+        // }
         return style;
       };
     }
@@ -3915,45 +3876,6 @@ var Taskvue_type_template_id_e9c23eca_render = function() {
       )
     },
     [
-      _vm.displayExpander
-        ? _c(
-            "foreignObject",
-            {
-              staticClass:
-                "gantt-elastic__chart-expander gantt-elastic__chart-expander--task",
-              style: Object.assign(
-                {},
-                _vm.root.style["chart-expander"],
-                _vm.root.style["chart-expander--task"],
-                _vm.task.style["chart-expander"]
-              ),
-              attrs: {
-                x:
-                  _vm.task.x -
-                  _vm.root.state.options.chart.expander.offset -
-                  _vm.root.state.options.chart.expander.size,
-                y:
-                  _vm.task.y +
-                  (_vm.root.state.options.row.height -
-                    _vm.root.state.options.chart.expander.size) /
-                    2,
-                width: _vm.root.state.options.chart.expander.size,
-                height: _vm.root.state.options.chart.expander.size
-              }
-            },
-            [
-              _c("expander", {
-                attrs: {
-                  tasks: [_vm.task],
-                  options: _vm.root.state.options.chart.expander,
-                  type: "chart"
-                }
-              })
-            ],
-            1
-          )
-        : _vm._e(),
-      _vm._v(" "),
       _c(
         "svg",
         {
@@ -4010,12 +3932,6 @@ var Taskvue_type_template_id_e9c23eca_render = function() {
           }
         },
         [
-          _c("defs", [
-            _c("clipPath", { attrs: { id: _vm.clipPathId } }, [
-              _c("polygon", { attrs: { points: _vm.getPoints } })
-            ])
-          ]),
-          _vm._v(" "),
           _c("polygon", {
             staticClass:
               "gantt-elastic__chart-row-bar-polygon gantt-elastic__chart-row-task-polygon",
@@ -4027,23 +3943,10 @@ var Taskvue_type_template_id_e9c23eca_render = function() {
               _vm.task.style["chart-row-bar-polygon"]
             ),
             attrs: { points: _vm.getPoints }
-          }),
-          _vm._v(" "),
-          _c("progress-bar", {
-            attrs: {
-              task: _vm.task,
-              "clip-path": "url(#" + _vm.clipPathId + ")"
-            }
           })
-        ],
-        1
-      ),
-      _vm._v(" "),
-      _vm.root.state.options.chart.text.display
-        ? _c("chart-text", { attrs: { task: _vm.task } })
-        : _vm._e()
-    ],
-    1
+        ]
+      )
+    ]
   )
 }
 var Taskvue_type_template_id_e9c23eca_staticRenderFns = []
@@ -4052,455 +3955,6 @@ Taskvue_type_template_id_e9c23eca_render._withStripped = true
 
 // CONCATENATED MODULE: ./src/components/Chart/Row/Task.vue?vue&type=template&id=e9c23eca&
 
-// CONCATENATED MODULE: ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./src/components/Chart/Text.vue?vue&type=template&id=459c2fe4&
-var Textvue_type_template_id_459c2fe4_render = function() {
-  var _vm = this
-  var _h = _vm.$createElement
-  var _c = _vm._self._c || _h
-  return _c(
-    "svg",
-    {
-      staticClass: "gantt-elastic__chart-row-text-wrapper",
-      style: Object.assign({}, _vm.root.style["chart-row-text-wrapper"]),
-      attrs: {
-        x:
-          _vm.task.x +
-          _vm.task.width +
-          _vm.root.state.options.chart.text.offset,
-        y: _vm.task.y - _vm.root.state.options.chart.grid.horizontal.gap,
-        width: _vm.getWidth,
-        height: _vm.getHeight
-      }
-    },
-    [
-      _c(
-        "foreignObject",
-        { attrs: { x: "0", y: "0", width: "100%", height: _vm.getHeight } },
-        [
-          _c(
-            "div",
-            {
-              staticClass: "gantt-elastic__chart-row-text",
-              style: Object.assign({}, _vm.root.style["chart-row-text"]),
-              attrs: { xmlns: "http://www.w3.org/1999/xhtml" }
-            },
-            [
-              !_vm.html
-                ? _c(
-                    "div",
-                    {
-                      staticClass:
-                        "gantt-elastic__chart-row-text-content gantt-elastic__chart-row-text-content--text",
-                      style: Object.assign(
-                        {},
-                        _vm.root.style["chart-row-text-content"],
-                        _vm.root.style["chart-row-text-content--text"],
-                        _vm.contentStyle
-                      )
-                    },
-                    [_c("div", [_vm._v(_vm._s(_vm.task.label))])]
-                  )
-                : _vm._e(),
-              _vm._v(" "),
-              _vm.html
-                ? _c("div", {
-                    staticClass:
-                      "gantt-elastic__chart-row-text-content gantt-elastic__chart-row-text-content--html",
-                    style: Object.assign(
-                      {},
-                      _vm.root.style["chart-row-text-content"],
-                      _vm.root.style["chart-row-text-content--html"],
-                      _vm.contentStyle
-                    ),
-                    domProps: { innerHTML: _vm._s(_vm.task.label) }
-                  })
-                : _vm._e()
-            ]
-          )
-        ]
-      )
-    ],
-    1
-  )
-}
-var Textvue_type_template_id_459c2fe4_staticRenderFns = []
-Textvue_type_template_id_459c2fe4_render._withStripped = true
-
-
-// CONCATENATED MODULE: ./src/components/Chart/Text.vue?vue&type=template&id=459c2fe4&
-
-// CONCATENATED MODULE: ./node_modules/vue-loader/lib??vue-loader-options!./src/components/Chart/Text.vue?vue&type=script&lang=js&
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-
-/* harmony default export */ var Textvue_type_script_lang_js_ = ({
-  name: 'ChartText',
-  inject: ['root'],
-  props: ['task'],
-  data() {
-    return {};
-  },
-  computed: {
-    /**
-     * Get width
-     *
-     * @returns {number}
-     */
-    getWidth() {
-      const textStyle = this.root.style['chart-row-text'];
-      this.root.state.ctx.font = `${textStyle['font-weight']} ${textStyle['font-size']} ${textStyle['font-family']}`;
-      const textWidth = this.root.state.ctx.measureText(this.task.label).width;
-      return textWidth + this.root.state.options.chart.text.xPadding * 2;
-    },
-
-    /**
-     * Get height
-     *
-     * @returns {number}
-     */
-    getHeight() {
-      return this.task.height + this.root.state.options.chart.grid.horizontal.gap * 2;
-    },
-
-    /**
-     * Get content style
-     *
-     * @returns {object}
-     */
-    contentStyle() {
-      return { height: '100%', 'line-height': this.getHeight + 'px' };
-    },
-
-    /**
-     * Should we render text as html?
-     *
-     * @returns {boolean}
-     */
-    html() {
-      const cols = this.root.state.options.taskList.columns;
-      for (let i = 0, len = cols.length; i < len; i++) {
-        const col = cols[i];
-        if (col.value === 'label' && typeof col.html !== 'undefined' && col.html) {
-          return true;
-        }
-      }
-      return false;
-    }
-  }
-});
-
-// CONCATENATED MODULE: ./src/components/Chart/Text.vue?vue&type=script&lang=js&
- /* harmony default export */ var Chart_Textvue_type_script_lang_js_ = (Textvue_type_script_lang_js_); 
-// CONCATENATED MODULE: ./src/components/Chart/Text.vue
-
-
-
-
-
-/* normalize component */
-
-var Text_component = normalizeComponent(
-  Chart_Textvue_type_script_lang_js_,
-  Textvue_type_template_id_459c2fe4_render,
-  Textvue_type_template_id_459c2fe4_staticRenderFns,
-  false,
-  null,
-  null,
-  null
-  
-)
-
-/* hot reload */
-if (false) { var Text_api; }
-Text_component.options.__file = "src/components/Chart/Text.vue"
-/* harmony default export */ var Text = (Text_component.exports);
-// CONCATENATED MODULE: ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./src/components/Chart/ProgressBar.vue?vue&type=template&id=4bc39355&
-var ProgressBarvue_type_template_id_4bc39355_render = function() {
-  var _vm = this
-  var _h = _vm.$createElement
-  var _c = _vm._self._c || _h
-  return _c(
-    "g",
-    {
-      staticClass: "gantt-elastic__chart-row-progress-bar-wrapper",
-      style: Object.assign(
-        {},
-        _vm.root.style["chart-row-progress-bar-wrapper"],
-        _vm.task.style["chart-row-progress-bar-wrapper"]
-      )
-    },
-    [
-      _c("defs", [
-        _c(
-          "pattern",
-          {
-            attrs: {
-              id: "diagonalHatch",
-              width: _vm.root.state.options.chart.progress.width,
-              height: _vm.root.state.options.chart.progress.width,
-              patternTransform: "rotate(45 0 0)",
-              patternUnits: "userSpaceOnUse"
-            }
-          },
-          [
-            _c("line", {
-              staticClass: "chart-row-progress-bar-line",
-              style: Object.assign(
-                {},
-                _vm.root.style["chart-row-progress-bar-line"],
-                _vm.task.style["chart-row-progress-bar-line"]
-              ),
-              attrs: {
-                x1: "0",
-                y1: "0",
-                x2: "0",
-                y2: _vm.root.state.options.chart.progress.width
-              }
-            })
-          ]
-        )
-      ]),
-      _vm._v(" "),
-      _vm.root.state.options.chart.progress.bar
-        ? _c("rect", {
-            staticClass: "gantt-elastic__chart-row-progress-bar-solid",
-            style: Object.assign(
-              {},
-              _vm.root.style["chart-row-progress-bar-solid"],
-              _vm.task.style["chart-row-progress-bar-solid"]
-            ),
-            attrs: { x: "0", y: "0", width: _vm.getProgressWidth }
-          })
-        : _vm._e(),
-      _vm._v(" "),
-      _vm.root.state.options.chart.progress.pattern
-        ? _c("g", [
-            _c("rect", {
-              staticClass: "gantt-elastic__chart-row-progress-bar-pattern",
-              style: Object.assign(
-                {},
-                _vm.root.style["chart-row-progress-bar-pattern"],
-                _vm.task.style["chart-row-progress-bar-pattern"]
-              ),
-              attrs: {
-                x: _vm.getProgressWidth,
-                y: "0",
-                width: 100 - _vm.task.progress + "%",
-                height: "100%"
-              }
-            }),
-            _vm._v(" "),
-            _c("path", {
-              staticClass: "gantt-elastic__chart-row-progress-bar-outline",
-              style: Object.assign(
-                {},
-                _vm.root.style["chart-row-progress-bar-outline"],
-                _vm.task.style["base"],
-                _vm.task.style["chart-row-progress-bar-outline"]
-              ),
-              attrs: { d: _vm.getLinePoints }
-            })
-          ])
-        : _vm._e()
-    ]
-  )
-}
-var ProgressBarvue_type_template_id_4bc39355_staticRenderFns = []
-ProgressBarvue_type_template_id_4bc39355_render._withStripped = true
-
-
-// CONCATENATED MODULE: ./src/components/Chart/ProgressBar.vue?vue&type=template&id=4bc39355&
-
-// CONCATENATED MODULE: ./node_modules/vue-loader/lib??vue-loader-options!./src/components/Chart/ProgressBar.vue?vue&type=script&lang=js&
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-
-/* harmony default export */ var ProgressBarvue_type_script_lang_js_ = ({
-  name: 'ProgressBar',
-  inject: ['root'],
-  props: ['task'],
-  data() {
-    return {};
-  },
-
-  computed: {
-    /**
-     * Get progress width
-     *
-     * @returns {string}
-     */
-    getProgressWidth() {
-      return this.task.progress + '%';
-    },
-
-    /**
-     * Get line points
-     *
-     * @returns {string}
-     */
-    getLinePoints() {
-      const start = (this.task.width / 100) * this.task.progress;
-      return `M ${start} 0 L ${start} ${this.task.height}`;
-    },
-
-    /**
-     * Get solid style
-     *
-     * @returns {object}
-     */
-    getSolidStyle() {
-      return Object.assign({}, this.root.state.options.chart.progress.styles.bar.solid, this.task.progressBarStyle.bar);
-    },
-
-    /**
-     * Get line style
-     *
-     * @returns {object}
-     */
-    getLineStyle() {
-      return Object.assign(
-        {},
-        {
-          stroke: this.root.state.options.row.styles.bar.stroke + 'a0',
-          'stroke-width': this.root.state.options.row.styles.bar['stroke-width'] / 2
-        },
-        this.task.style
-      );
-    }
-  }
-});
-
-// CONCATENATED MODULE: ./src/components/Chart/ProgressBar.vue?vue&type=script&lang=js&
- /* harmony default export */ var Chart_ProgressBarvue_type_script_lang_js_ = (ProgressBarvue_type_script_lang_js_); 
-// CONCATENATED MODULE: ./src/components/Chart/ProgressBar.vue
-
-
-
-
-
-/* normalize component */
-
-var ProgressBar_component = normalizeComponent(
-  Chart_ProgressBarvue_type_script_lang_js_,
-  ProgressBarvue_type_template_id_4bc39355_render,
-  ProgressBarvue_type_template_id_4bc39355_staticRenderFns,
-  false,
-  null,
-  null,
-  null
-  
-)
-
-/* hot reload */
-if (false) { var ProgressBar_api; }
-ProgressBar_component.options.__file = "src/components/Chart/ProgressBar.vue"
-/* harmony default export */ var ProgressBar = (ProgressBar_component.exports);
 // CONCATENATED MODULE: ./src/components/Chart/Row/Task.mixin.js
 /**
  * @fileoverview Task mixin
@@ -4608,39 +4062,11 @@ ProgressBar_component.options.__file = "src/components/Chart/ProgressBar.vue"
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-
-
-
 
 
 /* harmony default export */ var Taskvue_type_script_lang_js_ = ({
   name: 'Task',
   components: {
-    ChartText: Text,
-    ProgressBar: ProgressBar,
-    Expander: Expander
   },
   inject: ['root'],
   props: ['task'],
@@ -4665,7 +4091,7 @@ ProgressBar_component.options.__file = "src/components/Chart/ProgressBar.vue"
      */
     getPoints() {
       const task = this.task;
-      return `0,0 ${task.width},0 ${task.width},${task.height} 0,${task.height}`;
+      return `2,0 ${task.width - 2},0 ${task.width - 2},${task.height} 2,${task.height}`;
     }
   }
 });
@@ -4695,218 +4121,26 @@ var Task_component = normalizeComponent(
 if (false) { var Task_api; }
 Task_component.options.__file = "src/components/Chart/Row/Task.vue"
 /* harmony default export */ var Task = (Task_component.exports);
-// CONCATENATED MODULE: ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./src/components/Chart/Row/Milestone.vue?vue&type=template&id=3013006c&
-var Milestonevue_type_template_id_3013006c_render = function() {
+// CONCATENATED MODULE: ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./src/components/Chart/Row/Group.vue?vue&type=template&id=78306e59&
+var Groupvue_type_template_id_78306e59_render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c(
     "g",
-    {
-      staticClass:
-        "gantt-elastic__chart-row-bar-wrapper gantt-elastic__chart-row-milestone-wrapper",
-      style: Object.assign(
-        {},
-        _vm.root.style["chart-row-bar-wrapper"],
-        _vm.root.style["chart-row-milestone-wrapper"],
-        _vm.task.style["chart-row-bar-wrapper"]
-      )
-    },
-    [
-      _vm.displayExpander
-        ? _c(
-            "foreignObject",
-            {
-              staticClass:
-                "gantt-elastic__chart-expander gantt-elastic__chart-expander--milestone",
-              style: Object.assign(
-                {},
-                _vm.root.style["chart-expander"],
-                _vm.root.style["chart-expander--milestone"],
-                _vm.task.style["chart-expander"]
-              ),
-              attrs: {
-                x:
-                  _vm.task.x -
-                  _vm.root.state.options.chart.expander.offset -
-                  _vm.root.state.options.chart.expander.size,
-                y:
-                  _vm.task.y +
-                  (_vm.root.state.options.row.height -
-                    _vm.root.state.options.chart.expander.size) /
-                    2,
-                width: _vm.root.state.options.chart.expander.size,
-                height: _vm.root.state.options.chart.expander.size
-              }
-            },
-            [
-              _c("expander", {
-                attrs: {
-                  tasks: [_vm.task],
-                  options: _vm.root.state.options.chart.expander,
-                  type: "chart"
-                }
-              })
-            ],
-            1
-          )
-        : _vm._e(),
-      _vm._v(" "),
-      _c(
-        "svg",
-        {
-          staticClass:
-            "gantt-elastic__chart-row-bar gantt-elastic__chart-row-milestone",
-          style: Object.assign(
-            {},
-            _vm.root.style["chart-row-bar"],
-            _vm.root.style["chart-row-milestone"],
-            _vm.task.style["chart-row-bar"]
-          ),
-          attrs: {
-            x: _vm.task.x,
-            y: _vm.task.y,
-            width: _vm.task.width,
-            height: _vm.task.height,
-            viewBox: "0 0 " + _vm.task.width + " " + _vm.task.height,
-            xmlns: "http://www.w3.org/2000/svg"
-          },
-          on: {
-            click: function($event) {
-              return _vm.emitEvent("click", $event)
-            },
-            mouseenter: function($event) {
-              return _vm.emitEvent("mouseenter", $event)
-            },
-            mouseover: function($event) {
-              return _vm.emitEvent("mouseover", $event)
-            },
-            mouseout: function($event) {
-              return _vm.emitEvent("mouseout", $event)
-            },
-            mousemove: function($event) {
-              return _vm.emitEvent("mousemove", $event)
-            },
-            mousedown: function($event) {
-              return _vm.emitEvent("mousedown", $event)
-            },
-            mouseup: function($event) {
-              return _vm.emitEvent("mouseup", $event)
-            },
-            mousewheel: function($event) {
-              return _vm.emitEvent("mousewheel", $event)
-            },
-            touchstart: function($event) {
-              return _vm.emitEvent("touchstart", $event)
-            },
-            touchmove: function($event) {
-              return _vm.emitEvent("touchmove", $event)
-            },
-            touchend: function($event) {
-              return _vm.emitEvent("touchend", $event)
-            }
-          }
-        },
-        [
-          _c("defs", [
-            _c("clipPath", { attrs: { id: _vm.clipPathId } }, [
-              _c("polygon", { attrs: { points: _vm.getPoints } })
-            ])
-          ]),
-          _vm._v(" "),
-          _c("polygon", {
-            staticClass:
-              "gantt-elastic__chart-row-bar-polygon gantt-elastic__chart-row-milestone-polygon",
-            style: Object.assign(
-              {},
-              _vm.root.style["chart-row-bar-polygon"],
-              _vm.root.style["chart-row-milestone-polygon"],
-              _vm.task.style["base"],
-              _vm.task.style["chart-row-bar-polygon"]
-            ),
-            attrs: { points: _vm.getPoints }
-          }),
-          _vm._v(" "),
-          _c("progress-bar", {
-            attrs: {
-              task: _vm.task,
-              "clip-path": "url(#" + _vm.clipPathId + ")"
-            }
-          })
-        ],
-        1
-      ),
-      _vm._v(" "),
-      _vm.root.state.options.chart.text.display
-        ? _c("chart-text", { attrs: { task: _vm.task } })
-        : _vm._e()
-    ],
+    _vm._l(_vm.subtaskList, function(subtask) {
+      return _c("Task", { key: subtask.id, attrs: { task: subtask } })
+    }),
     1
   )
 }
-var Milestonevue_type_template_id_3013006c_staticRenderFns = []
-Milestonevue_type_template_id_3013006c_render._withStripped = true
+var Groupvue_type_template_id_78306e59_staticRenderFns = []
+Groupvue_type_template_id_78306e59_render._withStripped = true
 
 
-// CONCATENATED MODULE: ./src/components/Chart/Row/Milestone.vue?vue&type=template&id=3013006c&
+// CONCATENATED MODULE: ./src/components/Chart/Row/Group.vue?vue&type=template&id=78306e59&
 
-// CONCATENATED MODULE: ./node_modules/vue-loader/lib??vue-loader-options!./src/components/Chart/Row/Milestone.vue?vue&type=script&lang=js&
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
+// CONCATENATED MODULE: ./node_modules/vue-loader/lib??vue-loader-options!./src/components/Chart/Row/Group.vue?vue&type=script&lang=js&
 //
 //
 //
@@ -4928,15 +4162,9 @@ Milestonevue_type_template_id_3013006c_render._withStripped = true
 
 
 
-
-
-/* harmony default export */ var Milestonevue_type_script_lang_js_ = ({
-  name: 'Milestone',
-  components: {
-    ChartText: Text,
-    ProgressBar: ProgressBar,
-    Expander: Expander
-  },
+/* harmony default export */ var Groupvue_type_script_lang_js_ = ({
+  name: 'Group',
+  components: { Task: Task },
   inject: ['root'],
   props: ['task'],
   mixins: [Task_mixin],
@@ -4944,40 +4172,15 @@ Milestonevue_type_template_id_3013006c_render._withStripped = true
     return {};
   },
   computed: {
-    /**
-     * Get clip path id
-     *
-     * @returns {string}
-     */
-    clipPathId() {
-      return 'gantt-elastic__milestone-clip-path-' + this.task.id;
+    subtaskList() {
+      return this.task.tasks;
     },
-
-    /**
-     * Get points
-     *
-     * @returns {string}
-     */
-    getPoints() {
-      const task = this.task;
-      const fifty = task.height / 2;
-      let offset = fifty;
-      if (task.width / 2 - offset < 0) {
-        offset = task.width / 2;
-      }
-      return `0,${fifty}
-        ${offset},0
-        ${task.width - offset},0
-        ${task.width},${fifty}
-        ${task.width - offset},${task.height}
-        ${offset},${task.height}`;
-    }
-  }
+  },
 });
 
-// CONCATENATED MODULE: ./src/components/Chart/Row/Milestone.vue?vue&type=script&lang=js&
- /* harmony default export */ var Row_Milestonevue_type_script_lang_js_ = (Milestonevue_type_script_lang_js_); 
-// CONCATENATED MODULE: ./src/components/Chart/Row/Milestone.vue
+// CONCATENATED MODULE: ./src/components/Chart/Row/Group.vue?vue&type=script&lang=js&
+ /* harmony default export */ var Row_Groupvue_type_script_lang_js_ = (Groupvue_type_script_lang_js_); 
+// CONCATENATED MODULE: ./src/components/Chart/Row/Group.vue
 
 
 
@@ -4985,10 +4188,10 @@ Milestonevue_type_template_id_3013006c_render._withStripped = true
 
 /* normalize component */
 
-var Milestone_component = normalizeComponent(
-  Row_Milestonevue_type_script_lang_js_,
-  Milestonevue_type_template_id_3013006c_render,
-  Milestonevue_type_template_id_3013006c_staticRenderFns,
+var Group_component = normalizeComponent(
+  Row_Groupvue_type_script_lang_js_,
+  Groupvue_type_template_id_78306e59_render,
+  Groupvue_type_template_id_78306e59_staticRenderFns,
   false,
   null,
   null,
@@ -4997,328 +4200,9 @@ var Milestone_component = normalizeComponent(
 )
 
 /* hot reload */
-if (false) { var Milestone_api; }
-Milestone_component.options.__file = "src/components/Chart/Row/Milestone.vue"
-/* harmony default export */ var Milestone = (Milestone_component.exports);
-// CONCATENATED MODULE: ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./src/components/Chart/Row/Project.vue?vue&type=template&id=077bbd73&
-var Projectvue_type_template_id_077bbd73_render = function() {
-  var _vm = this
-  var _h = _vm.$createElement
-  var _c = _vm._self._c || _h
-  return _c(
-    "g",
-    {
-      staticClass:
-        "gantt-elastic__chart-row-bar-wrapper gantt-elastic__chart-row-project-wrapper",
-      style: Object.assign(
-        {},
-        _vm.root.style["chart-row-bar-wrapper"],
-        _vm.root.style["chart-row-project-wrapper"],
-        _vm.task.style["chart-row-bar-wrapper"]
-      )
-    },
-    [
-      _vm.displayExpander
-        ? _c(
-            "foreignObject",
-            {
-              staticClass:
-                "gantt-elastic__chart-expander gantt-elastic__chart-expander--project",
-              style: Object.assign(
-                {},
-                _vm.root.style["chart-expander"],
-                _vm.root.style["chart-expander--project"],
-                _vm.task.style["chart-expander"]
-              ),
-              attrs: {
-                x:
-                  _vm.task.x -
-                  _vm.root.state.options.chart.expander.offset -
-                  _vm.root.state.options.chart.expander.size,
-                y:
-                  _vm.task.y +
-                  (_vm.root.state.options.row.height -
-                    _vm.root.state.options.chart.expander.size) /
-                    2,
-                width: _vm.root.state.options.chart.expander.size,
-                height: _vm.root.state.options.chart.expander.size
-              }
-            },
-            [
-              _c("expander", {
-                attrs: {
-                  tasks: [_vm.task],
-                  options: _vm.root.state.options.chart.expander,
-                  type: "chart"
-                }
-              })
-            ],
-            1
-          )
-        : _vm._e(),
-      _vm._v(" "),
-      _c(
-        "svg",
-        {
-          staticClass:
-            "gantt-elastic__chart-row-bar gantt-elastic__chart-row-project",
-          style: Object.assign(
-            {},
-            _vm.root.style["chart-row-bar"],
-            _vm.root.style["chart-row-project"],
-            _vm.task.style["chart-row-bar"]
-          ),
-          attrs: {
-            x: _vm.task.x,
-            y: _vm.task.y,
-            width: _vm.task.width,
-            height: _vm.task.height,
-            viewBox: "0 0 " + _vm.task.width + " " + _vm.task.height,
-            xmlns: "http://www.w3.org/2000/svg"
-          },
-          on: {
-            click: function($event) {
-              return _vm.emitEvent("click", $event)
-            },
-            mouseenter: function($event) {
-              return _vm.emitEvent("mouseenter", $event)
-            },
-            mouseover: function($event) {
-              return _vm.emitEvent("mouseover", $event)
-            },
-            mouseout: function($event) {
-              return _vm.emitEvent("mouseout", $event)
-            },
-            mousemove: function($event) {
-              return _vm.emitEvent("mousemove", $event)
-            },
-            mousedown: function($event) {
-              return _vm.emitEvent("mousedown", $event)
-            },
-            mouseup: function($event) {
-              return _vm.emitEvent("mouseup", $event)
-            },
-            mousewheel: function($event) {
-              return _vm.emitEvent("mousewheel", $event)
-            },
-            touchstart: function($event) {
-              return _vm.emitEvent("touchstart", $event)
-            },
-            touchmove: function($event) {
-              return _vm.emitEvent("touchmove", $event)
-            },
-            touchend: function($event) {
-              return _vm.emitEvent("touchend", $event)
-            }
-          }
-        },
-        [
-          _c("defs", [
-            _c("clipPath", { attrs: { id: _vm.clipPathId } }, [
-              _c("path", { attrs: { d: _vm.getPoints } })
-            ])
-          ]),
-          _vm._v(" "),
-          _c("path", {
-            staticClass:
-              "gantt-elastic__chart-row-bar-polygon gantt-elastic__chart-row-project-polygon",
-            style: Object.assign(
-              {},
-              _vm.root.style["chart-row-bar-polygon"],
-              _vm.root.style["chart-row-project-polygon"],
-              _vm.task.style["base"],
-              _vm.task.style["chart-row-bar-polygon"]
-            ),
-            attrs: { d: _vm.getPoints }
-          }),
-          _vm._v(" "),
-          _c("progress-bar", {
-            attrs: {
-              task: _vm.task,
-              "clip-path": "url(#" + _vm.clipPathId + ")"
-            }
-          })
-        ],
-        1
-      ),
-      _vm._v(" "),
-      _vm.root.state.options.chart.text.display
-        ? _c("chart-text", { attrs: { task: _vm.task } })
-        : _vm._e()
-    ],
-    1
-  )
-}
-var Projectvue_type_template_id_077bbd73_staticRenderFns = []
-Projectvue_type_template_id_077bbd73_render._withStripped = true
-
-
-// CONCATENATED MODULE: ./src/components/Chart/Row/Project.vue?vue&type=template&id=077bbd73&
-
-// CONCATENATED MODULE: ./node_modules/vue-loader/lib??vue-loader-options!./src/components/Chart/Row/Project.vue?vue&type=script&lang=js&
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-
-
-
-
-
-/* harmony default export */ var Projectvue_type_script_lang_js_ = ({
-  name: 'Project',
-  components: {
-    ChartText: Text,
-    ProgressBar: ProgressBar,
-    Expander: Expander
-  },
-  inject: ['root'],
-  props: ['task'],
-  mixins: [Task_mixin],
-  data() {
-    return {};
-  },
-  computed: {
-    /**
-     * Get clip path id
-     *
-     * @returns {string}
-     */
-    clipPathId() {
-      return 'gantt-elastic__project-clip-path-' + this.task.id;
-    },
-
-    /**
-     * Get points
-     *
-     * @returns {string}
-     */
-    getPoints() {
-      const task = this.task;
-      const bottom = task.height - task.height / 4;
-      const corner = task.height / 6;
-      const smallCorner = task.height / 8;
-      return `M ${smallCorner},0
-                L ${task.width - smallCorner} 0
-                L ${task.width} ${smallCorner}
-                L ${task.width} ${bottom}
-                L ${task.width - corner} ${task.height}
-                L ${task.width - corner * 2} ${bottom}
-                L ${corner * 2} ${bottom}
-                L ${corner} ${task.height}
-                L 0 ${bottom}
-                L 0 ${smallCorner}
-                Z
-        `;
-    },
-
-    /**
-     * Should we display expander?
-     *
-     * @returns {boolean}
-     */
-    displayExpander() {
-      const expander = this.root.state.options.chart.expander;
-      return expander.display || (expander.displayIfTaskListHidden && !this.root.state.options.taskList.display);
-    }
-  }
-});
-
-// CONCATENATED MODULE: ./src/components/Chart/Row/Project.vue?vue&type=script&lang=js&
- /* harmony default export */ var Row_Projectvue_type_script_lang_js_ = (Projectvue_type_script_lang_js_); 
-// CONCATENATED MODULE: ./src/components/Chart/Row/Project.vue
-
-
-
-
-
-/* normalize component */
-
-var Project_component = normalizeComponent(
-  Row_Projectvue_type_script_lang_js_,
-  Projectvue_type_template_id_077bbd73_render,
-  Projectvue_type_template_id_077bbd73_staticRenderFns,
-  false,
-  null,
-  null,
-  null
-  
-)
-
-/* hot reload */
-if (false) { var Project_api; }
-Project_component.options.__file = "src/components/Chart/Row/Project.vue"
-/* harmony default export */ var Project = (Project_component.exports);
+if (false) { var Group_api; }
+Group_component.options.__file = "src/components/Chart/Row/Group.vue"
+/* harmony default export */ var Group = (Group_component.exports);
 // CONCATENATED MODULE: ./node_modules/vue-loader/lib??vue-loader-options!./src/components/Chart/Chart.vue?vue&type=script&lang=js&
 //
 //
@@ -5397,7 +4281,6 @@ Project_component.options.__file = "src/components/Chart/Row/Project.vue"
 
 
 
-
 /* harmony default export */ var Chartvue_type_script_lang_js_ = ({
   name: 'Chart',
   components: {
@@ -5405,8 +4288,7 @@ Project_component.options.__file = "src/components/Chart/Row/Project.vue"
     DependencyLines: DependencyLines,
     Calendar: Calendar,
     Task: Task,
-    Milestone: Milestone,
-    Project: Project,
+    Group: Group,
     DaysHighlight: DaysHighlight
   },
   inject: ['root'],
@@ -5849,7 +4731,10 @@ function getStyle(fontSize = '12px', fontFamily = 'Arial, sans-serif') {
       display: 'inline-block',
       position: 'relative'
     },
-    'calendar-row-text--month': {},
+    'calendar-row-text--month': {
+      left: '50%',
+      transform: 'translate3d(-50%, 0, 0)'
+    },
     'calendar-row-text--day': {},
     'calendar-row-text--hour': {},
     'task-list-wrapper': {},
@@ -5949,7 +4834,8 @@ function getStyle(fontSize = '12px', fontFamily = 'Arial, sans-serif') {
       'border-right': '1px solid #eee',
       'box-sizing': 'border-box',
       display: 'flex',
-      background: 'transparent'
+      background: 'transparent',
+      height: '30px'
     },
     'task-list-item-column': {
       display: 'inline-flex',
@@ -5978,7 +4864,7 @@ function getStyle(fontSize = '12px', fontFamily = 'Arial, sans-serif') {
       'margin-right': '6px',
       overflow: 'hidden',
       'text-overflow': 'ellipsis',
-      'line-height': '1.5em',
+      'line-height': '1em',
       'word-break': 'keep-all',
       'white-space': 'nowrap',
       color: '#606060',
@@ -5987,11 +4873,11 @@ function getStyle(fontSize = '12px', fontFamily = 'Arial, sans-serif') {
     'grid-lines': {},
     'grid-line-horizontal': {
       stroke: '#00000010',
-      'stroke-width': 1
+      'stroke-width': 0
     },
     'grid-line-vertical': {
       stroke: '#00000010',
-      'stroke-width': 1
+      'stroke-width': 0
     },
     'grid-line-time': {
       stroke: '#FF000080',
@@ -6086,7 +4972,8 @@ function getStyle(fontSize = '12px', fontFamily = 'Arial, sans-serif') {
       float: 'right'
     },
     'chart-days-highlight-rect': {
-      fill: '#f3f5f780'
+      // fill: '#f3f5f780',
+      fill: '#f2f2f280'
     },
     'slot-header-beforeOptions': {
       display: 'inline-block'
@@ -6209,14 +5096,14 @@ function getOptions(userOptions) {
       steps: []
     },
     row: {
-      height: 24 //*
+      height: 26 //*
     },
     maxRows: 20, //*
     maxHeight: 0, //*
     chart: {
       grid: {
         horizontal: {
-          gap: 6 //*
+          gap: 2 //*
         }
       },
       progress: {
@@ -6728,6 +5615,12 @@ const GanttElastic = {
       });
       this.state.options = options;
       tasks = this.fillTasks(tasks);
+      tasks.forEach(task => {
+        if (task.tasks) {
+          this.mapTasks(task.tasks, options);
+          this.fillTasks(task.tasks);
+        }
+      });
       this.state.tasksById = this.resetTaskTree(tasks);
       this.state.taskTree = this.makeTaskTree(this.state.rootTask, tasks);
       this.state.tasks = this.state.taskTree.allChildren.map(childId => this.getTask(childId));
@@ -7209,8 +6102,9 @@ const GanttElastic = {
       let min = this.state.options.times.timeScale;
       let steps = max / min;
       let percent = this.state.options.times.timeZoom / 100;
-      this.state.options.times.timePerPixel =
-        this.state.options.times.timeScale * steps * percent + Math.pow(2, this.state.options.times.timeZoom);
+      this.state.options.times.timePerPixel = 3600000 * 24 / 30
+      // this.state.options.times.timePerPixel =
+      //   this.state.options.times.timeScale * steps * percent + Math.pow(2, this.state.options.times.timeZoom);
       this.state.options.times.totalViewDurationMs = dayjs_min_default()(this.state.options.times.lastTime).diff(
         this.state.options.times.firstTime,
         'milliseconds'
@@ -7532,6 +6426,22 @@ const GanttElastic = {
         task.y =
           (this.state.options.row.height + this.state.options.chart.grid.horizontal.gap * 2) * index +
           this.state.options.chart.grid.horizontal.gap;
+        if (task.tasks) {
+          const subtasks = [];
+          task.tasks.forEach(subtask => {
+            subtask.width =
+              subtask.duration / this.state.options.times.timePerPixel -
+              this.style['grid-line-vertical']['stroke-width'];
+            if (subtask.width < 0) {
+              subtask.width = 0;
+            }
+            subtask.height = task.height;
+            subtask.x = this.timeToPixelOffsetX(subtask.startTime);
+            subtask.y = task.y;
+            subtasks.push(subtask);
+          });
+          task.tasks = subtasks;
+        }
       }
       return visibleTasks;
     },
