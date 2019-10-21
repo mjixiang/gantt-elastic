@@ -1,4 +1,4 @@
-module.exports =
+window["GanttElastic"] =
 /******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
 /******/ 	var installedModules = {};
@@ -112,7 +112,7 @@ if(false) {}
 /* 2 */
 /***/ (function(module, exports) {
 
-module.exports = require("Vue");
+(function() { module.exports = window["Vue"]; }());
 
 /***/ }),
 /* 3 */
@@ -6916,4 +6916,4 @@ function applyToTag (styleElement, obj) {
 
 /***/ })
 /******/ ])["default"];
-//# sourceMappingURL=GanttElastic.common.js.map
+//# sourceMappingURL=GanttElastic.global.js.map

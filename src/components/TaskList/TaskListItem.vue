@@ -11,7 +11,9 @@
     <item-column v-for="column in columns" :key="column._id" :column="column" :task="task">
       <task-list-expander
         v-if="column.expander"
+        :column="column"
         :tasks="[task]"
+        :task="task"
         :options="root.state.options.taskList.expander"
         type="taskList"
       ></task-list-expander>

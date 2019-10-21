@@ -130,6 +130,87 @@ module.exports = [
   {
     mode: 'production',
     optimization: {
+      minimize: false,
+      minimizer: [
+        new TerserPlugin({
+          terserOptions: {
+            mangle: false
+          }
+        })
+      ]
+    },
+    entry: './src/GanttElastic.vue',
+    output: {
+      path: path.resolve(__dirname, 'dist'),
+      filename: 'GanttElastic.global.js',
+      library: 'GanttElastic',
+      libraryTarget: 'global',
+      libraryExport: 'default'
+    },
+    devtool: 'source-map',
+    externals: {
+      vue: 'Vue'
+      //vuex: 'Vuex'
+      //dayjs: 'dayjs'
+    },
+    module: {
+      rules: [
+        {
+          test: /\.vue$/,
+          use: 'vue-loader'
+        },
+        {
+          test: /\.css$/,
+          use: ['vue-style-loader', 'css-loader']
+        }
+      ]
+    },
+    plugins: [new VueLoaderPlugin()]
+  },
+  {
+    mode: 'production',
+    optimization: {
+      minimize: true,
+      namedModules: true,
+      minimizer: [
+        new TerserPlugin({
+          terserOptions: {
+            mangle: false
+          }
+        })
+      ]
+    },
+    entry: './src/GanttElastic.vue',
+    devtool: 'source-map',
+    output: {
+      path: path.resolve(__dirname, 'dist'),
+      filename: 'GanttElastic.global.min.js',
+      library: 'GanttElastic',
+      libraryTarget: 'global',
+      libraryExport: 'default'
+    },
+    externals: {
+      vue: 'Vue'
+      //vuex: 'Vuex'
+      //dayjs: 'dayjs'
+    },
+    module: {
+      rules: [
+        {
+          test: /\.vue$/,
+          use: 'vue-loader'
+        },
+        {
+          test: /\.css$/,
+          use: ['vue-style-loader', 'css-loader']
+        }
+      ]
+    },
+    plugins: [new VueLoaderPlugin()]
+  },
+  {
+    mode: 'production',
+    optimization: {
       minimize: false
     },
     entry: './src/GanttElastic.vue',

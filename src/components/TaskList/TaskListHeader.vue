@@ -27,6 +27,7 @@
     >
       <task-list-expander
         v-if="column.expander"
+        :column="column"
         :tasks="collapsible"
         :options="root.state.options.taskList.expander"
       ></task-list-expander>

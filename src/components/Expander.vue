@@ -52,7 +52,7 @@
 export default {
   name: 'Expander',
   inject: ['root'],
-  props: ['tasks', 'options', 'type'],
+  props: ['tasks', 'options', 'type', 'column', 'task'],
   data() {
     const border = 0.5;
     return {
@@ -127,6 +127,18 @@ export default {
       this.tasks.forEach(task => {
         task.collapsed = collapsed;
       });
+      this.emitEvent('collapse', { collapsed })
+    },
+    /**
+     * Emit event
+     *
+     * @param {String} eventName
+     * @param {Event} event
+     */
+    emitEvent(eventName, event) {
+      if (typeof this.column.events !== 'undefined' && typeof this.column.events[eventName] === 'function') {
+        this.column.events[eventName]({ event, data: this.task || this.tasks, column: this.column });
+      }
     }
   }
 };
