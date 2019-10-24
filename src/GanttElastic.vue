@@ -44,6 +44,7 @@ function getOptions(userOptions) {
     localeName = userOptions.locale.name;
   }
   return {
+    stages: [],
     slots: {
       header: {}
     },
@@ -1135,14 +1136,14 @@ const GanttElastic = {
       this.state.options.times.firstTime = dayjs(this.state.options.times.firstTaskTime)
         .locale(this.state.options.locale.name)
         .startOf('day')
-        .subtract(this.state.options.scope.before, 'days')
-        .startOf('day')
+        // .subtract(this.state.options.scope.before, 'days')
+        // .startOf('day')
         .valueOf();
       this.state.options.times.lastTime = dayjs(this.state.options.times.lastTaskTime)
         .locale(this.state.options.locale.name)
         .endOf('day')
-        .add(this.state.options.scope.after, 'days')
-        .endOf('day')
+        // .add(this.state.options.scope.after, 'days')
+        // .endOf('day')
         .valueOf();
       this.recalculateTimes();
     },
@@ -1347,14 +1348,14 @@ const GanttElastic = {
       this.state.options.times.firstTime = dayjs(firstTaskTime)
         .locale(this.state.options.locale.name)
         .startOf('day')
-        .subtract(this.state.options.scope.before, 'days')
-        .startOf('day')
+        // .subtract(this.state.options.scope.before, 'days')
+        // .startOf('day')
         .valueOf();
       this.state.options.times.lastTime = dayjs(lastTaskTime)
         .locale(this.state.options.locale.name)
         .endOf('day')
-        .add(this.state.options.scope.after, 'days')
-        .endOf('day')
+        // .add(this.state.options.scope.after, 'days')
+        // .endOf('day')
         .valueOf();
     },
 

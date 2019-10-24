@@ -3123,7 +3123,37 @@ var Calendarvue_type_template_id_dee108e2_render = function() {
             ? _c("calendar-row", {
                 attrs: { items: _vm.dates.hours, which: "hour" }
               })
-            : _vm._e()
+            : _vm._e(),
+          _vm._v(" "),
+          _c(
+            "div",
+            { staticStyle: { display: "flex" } },
+            _vm._l(_vm.root.state.options.stages, function(item, index) {
+              return _c(
+                "div",
+                {
+                  key: index,
+                  staticStyle: {
+                    height: "16px",
+                    "line-height": "16px",
+                    "font-size": "12px",
+                    color: "white",
+                    "text-align": "center",
+                    overflow: "hidden",
+                    "white-space": "nowrap",
+                    "text-overflow": "ellipsis",
+                    "border-radius": "8px"
+                  },
+                  style: {
+                    width: item.days * 30 + "px",
+                    backgroundColor: item.color
+                  }
+                },
+                [_vm._v(_vm._s(item.name) + "（" + _vm._s(item.days) + "天）")]
+              )
+            }),
+            0
+          )
         ],
         1
       )
@@ -3345,6 +3375,9 @@ CalendarRow_component.options.__file = "src/components/Calendar/CalendarRow.vue"
 //
 //
 //
+//
+//
+//
 
 
 
@@ -3358,37 +3391,7 @@ CalendarRow_component.options.__file = "src/components/Calendar/CalendarRow.vue"
   data() {
     return {};
   },
-
   methods: {
-    /**
-     * How many hours will fit?
-     *
-     * @returns {object}
-     */
-    howManyHoursFit(dayIndex) {
-      const stroke = 1;
-      const additionalSpace = stroke + 2;
-      let fullCellWidth = this.root.state.options.times.steps[dayIndex].width.px;
-      let formatNames = Object.keys(this.root.state.options.calendar.hour.format);
-      for (let hours = 24; hours > 1; hours = Math.ceil(hours / 2)) {
-        for (let formatName of formatNames) {
-          if (
-            (this.root.state.options.calendar.hour.maxWidths[formatName] + additionalSpace) * hours <= fullCellWidth &&
-            hours > 1
-          ) {
-            return {
-              count: hours,
-              type: formatName
-            };
-          }
-        }
-      }
-      return {
-        count: 0,
-        type: ''
-      };
-    },
-
     /**
      * How many days will fit?
      *
@@ -3462,53 +3465,6 @@ CalendarRow_component.options.__file = "src/components/Calendar/CalendarRow.vue"
         count: 0,
         type: formatNames[0]
       };
-    },
-
-    /**
-     * Generate hours
-     *
-     * @returns {array}
-     */
-    generateHours() {
-      let allHours = [];
-      if (!this.root.state.options.calendar.hour.display) {
-        return allHours;
-      }
-      const steps = this.root.state.options.times.steps;
-      const localeName = this.root.state.options.locale.name;
-      for (let hourIndex = 0, len = steps.length; hourIndex < len; hourIndex++) {
-        const hoursCount = this.howManyHoursFit(hourIndex);
-        if (hoursCount.count === 0) {
-          continue;
-        }
-        const hours = { key: hourIndex + 'step', children: [] };
-        const hourStep = 24 / hoursCount.count;
-        const hourWidthPx = steps[hourIndex].width.px / hoursCount.count;
-        for (let i = 0, len = hoursCount.count; i < len; i++) {
-          const hour = i * hourStep;
-          let index = hourIndex;
-          if (hourIndex > 0) {
-            index = hourIndex - Math.floor(hourIndex / 24) * 24;
-          }
-          let textWidth = 0;
-          if (typeof this.root.state.options.calendar.hour.widths[index] !== 'undefined') {
-            textWidth = this.root.state.options.calendar.hour.widths[index][hoursCount.type];
-          }
-          let x = steps[hourIndex].offset.px + hourWidthPx * i;
-          hours.children.push({
-            index: hourIndex,
-            key: 'h' + i,
-            x,
-            y: this.root.state.options.calendar.day.height + this.root.state.options.calendar.month.height,
-            width: hourWidthPx,
-            textWidth,
-            height: this.root.state.options.calendar.hour.height,
-            label: this.root.state.options.calendar.hour.formatted[hoursCount.type][hour]
-          });
-        }
-        allHours.push(hours);
-      }
-      return allHours;
     },
 
     /**
@@ -3647,16 +3603,15 @@ CalendarRow_component.options.__file = "src/components/Calendar/CalendarRow.vue"
       if (this.root.state.options.calendar.month.display && months.length > 0) {
         height += this.root.state.options.calendar.month.height;
       }
-      this.root.state.options.calendar.height = height;
+      this.root.state.options.calendar.height = height + (this.root.state.options.stages.length ? 16 : 0);
     }
   },
 
   computed: {
     dates() {
-      const hours = this.generateHours();
       const days = this.generateDays();
       const months = this.generateMonths();
-      const allDates = { hours, days, months };
+      const allDates = { days, months };
       this.calculateCalendarDimensions(allDates);
       return allDates;
     }
@@ -5049,6 +5004,7 @@ function getOptions(userOptions) {
     localeName = userOptions.locale.name;
   }
   return {
+    stages: [],
     slots: {
       header: {}
     },
@@ -6140,14 +6096,14 @@ const GanttElastic = {
       this.state.options.times.firstTime = dayjs_min_default()(this.state.options.times.firstTaskTime)
         .locale(this.state.options.locale.name)
         .startOf('day')
-        .subtract(this.state.options.scope.before, 'days')
-        .startOf('day')
+        // .subtract(this.state.options.scope.before, 'days')
+        // .startOf('day')
         .valueOf();
       this.state.options.times.lastTime = dayjs_min_default()(this.state.options.times.lastTaskTime)
         .locale(this.state.options.locale.name)
         .endOf('day')
-        .add(this.state.options.scope.after, 'days')
-        .endOf('day')
+        // .add(this.state.options.scope.after, 'days')
+        // .endOf('day')
         .valueOf();
       this.recalculateTimes();
     },
@@ -6352,14 +6308,14 @@ const GanttElastic = {
       this.state.options.times.firstTime = dayjs_min_default()(firstTaskTime)
         .locale(this.state.options.locale.name)
         .startOf('day')
-        .subtract(this.state.options.scope.before, 'days')
-        .startOf('day')
+        // .subtract(this.state.options.scope.before, 'days')
+        // .startOf('day')
         .valueOf();
       this.state.options.times.lastTime = dayjs_min_default()(lastTaskTime)
         .locale(this.state.options.locale.name)
         .endOf('day')
-        .add(this.state.options.scope.after, 'days')
-        .endOf('day')
+        // .add(this.state.options.scope.after, 'days')
+        // .endOf('day')
         .valueOf();
     },
 
